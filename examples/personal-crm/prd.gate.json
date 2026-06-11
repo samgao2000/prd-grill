@@ -1,0 +1,71 @@
+{
+  "schema": "prd-gate/v1",
+  "prd": "docs/prd/2026-05-19-personal-crm.md",
+  "generated_at": "2026-06-10T16:06:38+00:00",
+  "mode": "deterministic-only",
+  "judge_pending": true,
+  "verdict": "PASS-WITH-OPEN-ITEMS",
+  "aggregate": 0.968,
+  "requirement_confidence": 0.85,
+  "total_stories": 8,
+  "failed_stories": [
+    "US-002"
+  ],
+  "allowed_failures": 1,
+  "core_veto": {
+    "vetoed": false,
+    "reasons": []
+  },
+  "dimensions": {
+    "gap": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 8,
+      "failures": []
+    },
+    "no_weasel": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 8,
+      "failures": []
+    },
+    "solution_free": {
+      "score": 0.875,
+      "judged_by": "deterministic",
+      "applicable": 8,
+      "failures": [
+        {
+          "unit": "US-002",
+          "detail": "solution terms in story prose: sqlite"
+        }
+      ]
+    },
+    "testable": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 8,
+      "failures": []
+    },
+    "traceable": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 8,
+      "failures": []
+    },
+    "unowned": {
+      "score": 0.9091,
+      "judged_by": "deterministic",
+      "applicable": 22,
+      "failures": [
+        {
+          "unit": "OI row 19",
+          "detail": "no concrete deadline: '2027 V2'"
+        },
+        {
+          "unit": "OI row 20",
+          "detail": "no concrete deadline: '2027 V2'"
+        }
+      ]
+    }
+  }
+}

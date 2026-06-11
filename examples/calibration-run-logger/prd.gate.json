@@ -1,0 +1,90 @@
+{
+  "schema": "prd-gate/v1",
+  "prd": "docs/prd/2026-06-10-calibration-run-logger.md",
+  "generated_at": "2026-06-10T22:46:44+00:00",
+  "mode": "deterministic+fresh-context-judge",
+  "judge_pending": false,
+  "verdict": "PASS-WITH-OPEN-ITEMS",
+  "aggregate": 0.9587,
+  "requirement_confidence": 0.85,
+  "total_stories": 3,
+  "failed_stories": [],
+  "allowed_failures": 0,
+  "core_veto": {
+    "vetoed": false,
+    "reasons": []
+  },
+  "dimensions": {
+    "contradiction": {
+      "score": 0.67,
+      "judged_by": "llm",
+      "applicable": 3,
+      "failures": [
+        {
+          "unit": "US-002",
+          "detail": "US-002 ext 3a and US-001 ext 2b are both matchable by the same constructible input with no precedence rule, and prescribe incompatible outcomes. US-002 ext 3a: 'Dataset contains a corrupted record (crash during a previous append, US-001 ext 3c) -> emission moves the corrupted record to the quarantine area, appends the new record ... appends never stay blocked'. US-001 ext 2b: 'Same run_id already present in the dataset -> emission rejected, nothing appended (\"duplicate run_id\")'. Input: the dataset holds a corrupted record from a crashed append AND a valid record whose run_id matches the incoming record (e.g. an operator re-runs the emission step for an already-recorded run after some other run's crash). Ext 3a says the new record is appended; ext 2b says nothing is appended — both cannot hold. The same overlap leaves a second behavior undefined: when the incoming record is rejected (by US-001 ext 2b or US-002 ext 1a/1b/2a), does the quarantine move of the pre-existing corrupted record still occur? Neither story says. Fix per anchor [Contradiction]: write the boundary condition (e.g. validation/duplicate checks take precedence and quarantine occurs only on a successful append, or quarantine occurs unconditionally before the candidate is judged)."
+        }
+      ]
+    },
+    "dangling": {
+      "score": 1.0,
+      "judged_by": "llm",
+      "applicable": 3,
+      "failures": []
+    },
+    "fallacy": {
+      "score": 1.0,
+      "judged_by": "llm",
+      "applicable": 3,
+      "failures": []
+    },
+    "gap": {
+      "score": 1.0,
+      "judged_by": "merged",
+      "applicable": 3,
+      "failures": []
+    },
+    "no_weasel": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 3,
+      "failures": []
+    },
+    "overreach": {
+      "score": 1.0,
+      "judged_by": "llm",
+      "applicable": 3,
+      "failures": []
+    },
+    "redundancy": {
+      "score": 1.0,
+      "judged_by": "llm",
+      "applicable": 3,
+      "failures": []
+    },
+    "solution_free": {
+      "score": 1.0,
+      "judged_by": "merged",
+      "applicable": 3,
+      "failures": []
+    },
+    "testable": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 3,
+      "failures": []
+    },
+    "traceable": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 3,
+      "failures": []
+    },
+    "unowned": {
+      "score": 1.0,
+      "judged_by": "deterministic",
+      "applicable": 2,
+      "failures": []
+    }
+  }
+}

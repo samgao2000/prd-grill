@@ -1,0 +1,11 @@
+{
+  "name": "prd-grill",
+  "description": "Grill -> Gate -> Build: requirements interrogation (req-dev-lite), an independent PRD quality gate (prd-gate), and an AFK implementation pipeline (auto-dev-lite).",
+  "version": "0.1.0",
+  "author": { "name": "Sam Gao" },
+  "skills": [
+    "./skills/req-dev-lite",
+    "./skills/prd-gate",
+    "./skills/auto-dev-lite"
+  ]
+}

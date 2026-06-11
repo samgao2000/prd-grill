@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.judge-tasks.json
+*.judge-results.json
+.venv/

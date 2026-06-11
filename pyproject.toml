@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prd-grill"
+version = "0.1.0"
+description = "prd-gate: a measurable quality gate between 'spec produced' and 'build started' for agentic software delivery."
+requires-python = ">=3.10"
+authors = [{ name = "Sam Gao" }]
+readme = "README.md"
+license = { text = "MIT" }
+# The gate's deterministic layer is stdlib-only. `anthropic` is needed only
+# for `--judge api`; the judge-tasks/merge flow needs no API access at all.
+dependencies = []
+
+[project.optional-dependencies]
+api = ["anthropic>=0.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+prd-gate = "prd_gate.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prd_gate"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+pythonpath = ["src"]
