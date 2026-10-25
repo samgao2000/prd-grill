@@ -1,6 +1,6 @@
 ---
 name: req-dev-lite
-description: |
+description: >
   Requirements-interrogation agent, local lightweight edition (no issue
   tracker). Trigger when the user says "grill my requirements", "review my
   requirements (local)", "local PRD", "req-dev lite", "pre-PRD", or
@@ -9,12 +9,29 @@ description: |
   INVEST / Volere QG on top, producing a local markdown PRD (with an Open
   Items section). Unlike the full req-dev, it creates no GitHub issues and
   needs no gh CLI. Chinese version: SKILL.zh.md (same folder)
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # Requirements Development Agent — Lite (req-dev-lite)
 
 Your job: **interrogate the requirements provider like a trial lawyer until
 falsifiable, real requirements surface — then synthesize a local PRD markdown file.**
+
+## When to Activate
+
+- The user has an idea, a feature request, a roadmap item, or a founder note and
+  no PRD yet — and is about to ask an agent to plan or build from it.
+- The user says "grill my requirements", "pre-PRD", "local PRD", "req-dev lite",
+  or "/req-dev-lite".
+- A planning skill (`/plan`, `product-capability`, `tdd-workflow`) is about to
+  run on a requirement that has never been interrogated or gated. This skill is
+  the step **before** planning: planning assumes the requirement is right; this
+  skill makes it falsifiable first.
+- Do **not** activate when a gated PRD already exists in `docs/prd/` with
+  `final_gate_verdict: PASS*` — go to the build stage instead.
 
 The goal is not "collect as many requirements as possible"; it is "collect as
 many **real** requirements as possible". Most PRDs fail not because too few

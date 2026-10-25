@@ -138,6 +138,29 @@ prd-gate score --prd docs/prd/your-prd.md
 
 纯标准库。不装它 req-dev-lite 也能跑——PRD 会标 `gate_mode: self-reported`，下游信任被刻意封顶。
 
+## 与 ECC 配合使用
+
+[ECC](https://github.com/affaan-m/ECC) 给代码把关：plan → TDD → 全新上下文评审 → verify。
+它没有任何一道闸门检查 plan 所依据的那条需求。prd-grill 就是那道闸门，位置在 `/ecc:plan` 之前。
+
+```
+/plugin marketplace add https://github.com/affaan-m/ECC   # 尚未安装 ECC 时
+/plugin install ecc@ecc
+/plugin marketplace add samgao2000/prd-grill
+/plugin install prd-grill@prd-grill
+```
+
+除三个 skill 之外，插件还带来：
+
+- **`prd-judge` agent** —— 全新上下文的判官，以 ECC 风格的 agent 形式存在，只有 Read/Write 权限，
+  独立性靠结构保证，不靠口头约定。
+- **`prd-gate-guard` 钩子** —— 遇到 `/ecc:plan`、`/tdd`，或模型调用 `plan` / `tdd-workflow` /
+  `product-capability` 时，读最新的 `docs/prd/*.md`；除非 verdict 为 `PASS*` 且
+  `gate_mode: prd-gate`，否则**阻断**。自评的 PASS 一样被拦。`PRD_GATE_GUARD=off` 可关闭。
+
+ECC 本身不做任何修改。完整映射、手动安装方式、以及刻意暂不覆盖的部分：
+[`integrations/ecc/README.zh.md`](integrations/ecc/README.zh.md)。
+
 ## 为什么需要闸门？
 
 人类团队的评审之所以失效，是因为没人能用数字说清楚一次评审到底做没做好。同样的失败正在 agent 流水线里以更糟的形式重演：写 PRD 的模型在同一个上下文窗口里审自己写的 PRD，然后给自己放行。每条流水线都有对代码的测试，对代码所依据的 spec 却几乎没有任何检查。

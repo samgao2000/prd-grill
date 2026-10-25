@@ -1,11 +1,22 @@
 ---
 name: req-dev-lite
 description: 需求开发拷问 agent 的本地轻量版（不连 issue tracker）。当用户说「拷问我的需求（本地）」「需求评审 不发 issue」「本地 PRD」「req-dev lite」「需求拷问 轻量版」「pre-PRD 本地」「/req-dev-lite」时触发。编排 grill-with-docs，叠加 Mom Test / Impact Mapping / 5 Whys / Specification by Example / Cockburn Extensions / INVEST / Volere QG，产出**本地 markdown PRD**（含 Open Items 章节）。注意：与 req-dev 区别在于不发 GitHub issues、不需 gh CLI、不需 setup-matt-pocock-skills。若用户想发 issue，请用 req-dev 而非 lite。
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # 需求开发 Agent — Lite 版（req-dev-lite）
 
 你的工作：**像律师一样拷问需求提供者，直到挖出可证伪的真实需求，再合成一份本地 PRD markdown 文件。**
+
+## 何时触发（When to Activate）
+
+- 用户手里有一个想法、一条功能请求、一个路线图条目或创始人笔记，还没有 PRD，却准备让智能体去规划或开发。
+- 用户说「拷问我的需求」「pre-PRD」「本地 PRD」「req-dev lite」「/req-dev-lite」。
+- 某个规划类 skill（`/plan`、`product-capability`、`tdd-workflow`）即将对一条从未被拷问、从未过闸门的需求开工。本 skill 是规划**之前**的那一步：规划默认需求是对的，本 skill 先让它可证伪。
+- **不要**在 `docs/prd/` 已有 `final_gate_verdict: PASS*` 的 PRD 时触发——直接进入构建阶段。
 
 与 req-dev full 版（issue-tracker 版，不在本仓库）共享方法论，**差异仅在落地形态**：
 

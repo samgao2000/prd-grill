@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: >-
+  If you use prd-grill, the Grill -> Gate -> Build pattern, or the prd-gate
+  independent spec gate in your work, please cite it as below.
+type: software
+title: "prd-grill: Grill -> Gate -> Build — interrogate requirements, score them with an independent gate, then hand the human-approved PRD to autonomous development"
+authors:
+  - family-names: Gao
+    given-names: Sam
+    alias: samgao2000
+version: 0.4.0
+date-released: 2026-06-11
+license: MIT
+repository-code: https://github.com/samgao2000/prd-grill
+url: https://github.com/samgao2000/prd-grill
+keywords:
+  - requirements engineering
+  - PRD
+  - LLM-as-judge
+  - quality gate
+  - agentic coding
+  - agent skills
+abstract: >-
+  Three agent skills for agentic software delivery. req-dev-lite interrogates
+  the requirements provider until requirements are falsifiable (Mom Test,
+  Impact Mapping, 5 Whys, Specification by Example, Cockburn Extensions,
+  INVEST, Volere Quality Gateway). prd-gate scores the resulting PRD on 11
+  dimensions with a deterministic layer plus a fresh-context LLM judge that
+  never sees the elicitation conversation, and emits a machine-readable
+  verdict and requirement_confidence. auto-dev-lite builds from the gated PRD
+  AFK and refuses a FAIL or unscored spec. The integration with ECC adds the
+  judge as an agent and a hook that blocks planning from ungated PRDs.
