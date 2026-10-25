@@ -1,15 +1,27 @@
 ---
 name: auto-dev-lite
-description: |
+description: >
   Autonomous software development pipeline (LITE 版，无 GitHub 依赖，
   git 可选)。从本地 markdown issue 文件驱动到 git commit（有 git 时）
   或 runs/ledger.md 台账（无 git 时），全程 Claude AFK 端到端，
   不需要用户切 terminal 跑 cli。当用户说「用 auto-dev-lite 跑 CRM」
   「local pipeline 走起」「不上 GitHub 跑 auto-dev」时触发。
 disable-model-invocation: false
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # Auto-Dev Lite — Skill
+
+## 何时触发（When to Activate）
+
+- `docs/prd/` 里有已过闸门的 PRD（`final_gate_verdict: PASS` 或 `PASS-WITH-OPEN-ITEMS`），且用户明确启动实现。
+- 用户说「用 auto-dev-lite 跑 X」「AFK 实现 PRD」「本地 pipeline 走起」「从 PRD 启动 auto-dev-lite」。
+- `local-issues/*.md` 已存在且状态为 `ready`。
+- **不要**对 `final_gate_verdict: FAIL` 或 `not_reached` 的 PRD 触发——step 0.5 按设计硬停。先跑 prd-gate。
+- 如果项目已经在用别的构建流程（例如 ECC 的 `tdd-workflow`），本 skill 可选：把已过闸门的 PRD 交给那个流程，只保留 step 10（校准记录）。见 `integrations/ecc/README.md`。
 
 ## 触发
 

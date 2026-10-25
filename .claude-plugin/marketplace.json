@@ -8,8 +8,8 @@
     {
       "name": "prd-grill",
       "source": "./",
-      "description": "Grill -> Gate -> Build: requirements interrogation (req-dev-lite), an independent PRD quality gate (prd-gate), and an AFK implementation pipeline (auto-dev-lite).",
-      "version": "0.1.0",
+      "description": "Grill -> Gate -> Build: requirements interrogation (req-dev-lite), an independent PRD quality gate (prd-gate) with a fresh-context judge agent and a guard hook that blocks planning from ungated PRDs, and an AFK implementation pipeline (auto-dev-lite). Works alongside ECC.",
+      "version": "0.4.0",
       "author": { "name": "Sam Gao" }
     }
   ]

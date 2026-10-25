@@ -1,15 +1,33 @@
 ---
 name: auto-dev-lite
-description: |
+description: >
   Autonomous software development pipeline, lite edition: no GitHub
   dependency, git optional. Drives local markdown issue files to git
   commits (when a repo exists) or to a runs/ledger.md audit log (when it
-  doesn't), fully AFK end-to-end. Trigger on "run auto-dev-lite on X",
+  doesn't), fully AFK end-to-end. Refuses to build from a PRD whose gate
+  verdict is FAIL or missing. Trigger on "run auto-dev-lite on X",
   "implement the PRD AFK", "local pipeline go", or "start auto-dev-lite
   from the PRD". Chinese version: SKILL.zh.md (same folder)
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # Auto-Dev Lite — Skill
+
+## When to Activate
+
+- A gated PRD (`final_gate_verdict: PASS` or `PASS-WITH-OPEN-ITEMS`) exists in
+  `docs/prd/` and the user explicitly starts implementation.
+- The user says "run auto-dev-lite on X", "implement the PRD AFK", "local
+  pipeline go", "start auto-dev-lite from the PRD".
+- `local-issues/*.md` already exist with status `ready`.
+- Do **not** activate on a PRD with `final_gate_verdict: FAIL` or `not_reached`
+  — step 0.5 hard-stops by design. Run prd-gate first.
+- If the project already runs a build workflow such as ECC's `tdd-workflow`,
+  this skill is optional: hand the gated PRD to that workflow instead and keep
+  only step 10 (calibration record). See `integrations/ecc/README.md`.
 
 ## Triggers
 

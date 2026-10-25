@@ -167,6 +167,32 @@ prd-gate score --prd docs/prd/your-prd.md
 Stdlib-only. Without it, req-dev-lite still works; PRDs are then marked
 `gate_mode: self-reported` and downstream trust is capped (by design).
 
+## Use with ECC
+
+[ECC](https://github.com/affaan-m/ECC) gates code: plan → TDD → fresh-context
+review → verify. It has no gate on the requirement the plan was built from.
+prd-grill is that gate, and it sits in front of `/ecc:plan`.
+
+```
+/plugin marketplace add https://github.com/affaan-m/ECC   # if not already installed
+/plugin install ecc@ecc
+/plugin marketplace add samgao2000/prd-grill
+/plugin install prd-grill@prd-grill
+```
+
+The plugin adds, on top of the three skills:
+
+- **`prd-judge` agent** — the fresh-context judge as an ECC-style agent with
+  Read/Write only, so independence is structural rather than a request.
+- **`prd-gate-guard` hook** — on `/ecc:plan`, `/tdd`, or a model-invoked
+  `plan` / `tdd-workflow` / `product-capability`, it reads the newest
+  `docs/prd/*.md` and **blocks** unless the verdict is `PASS*` with
+  `gate_mode: prd-gate`. A self-graded PASS is blocked. `PRD_GATE_GUARD=off`
+  disables it.
+
+ECC is not modified. Full mapping, manual install, and what is deliberately
+not covered yet: [`integrations/ecc/README.md`](integrations/ecc/README.md).
+
 ## Why a gate at all?
 
 Reviews fail in human teams because nobody can say, in numbers, whether a review
@@ -289,12 +315,16 @@ skills/prd-gate/        gate skill                — SKILL.md (EN) + SKILL.zh.m
 skills/auto-dev-lite/   AFK build pipeline        — SKILL.md (EN) + SKILL.zh.md
   references/           import rules (bilingual anchors), issue template,
                         inlined-helpers.py (stdlib fallback)
+agents/prd-judge.md     fresh-context judge as a Claude Code / ECC agent
+hooks/                  prd-gate-guard.py + hooks.json — blocks planning from ungated PRDs
+integrations/ecc/       how the pieces map onto ECC; install.py for non-plugin installs
 src/prd_gate/           gate implementation (deterministic layer: zero deps)
-tests/                  19 regression tests
+tests/                  regression tests (`pytest`)
 third_party/            grill-with-docs, vendored from mattpocock/skills (MIT)
 examples/                two worked examples: calibration-run-logger (EN),
                         personal-crm (中文) — each: PRD + gate report + snapshot
 .claude-plugin/         plugin.json + marketplace.json (Claude Code install)
+CITATION.cff            how to cite the method
 ```
 
 ## Contributing

@@ -1,6 +1,6 @@
 ---
 name: prd-gate
-description: |
+description: >
   独立 PRD 质量闸门 — req-dev「spec produced」与 auto-dev「build started」之间的
   可测量关卡。对 PRD 按 11 维度（Volere 4 问 + 7 标签）打分: 确定性检查 +
   fresh-context LLM judge, 输出 .gate.json (机器可读) + .gate.md (人读) +
@@ -9,9 +9,21 @@ description: |
   Triggers: "跑 prd-gate", "给这个 PRD 打分", "gate 这个 PRD", "score this PRD",
   "PRD 质量检查", "/prd-gate"。
 disable-model-invocation: false
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # prd-gate — 独立 PRD 质量闸门
+
+## 何时触发（When to Activate）
+
+- `docs/prd/` 里已有 PRD，有人准备据此规划或开发。先过闸门，verdict 决定能否开工。
+- 用户说「跑 prd-gate」「给这个 PRD 打分」「gate 这个 PRD」「/prd-gate」。
+- req-dev-lite 阶段 7 到达落地步骤（装有 `prd_gate` 时强制）。
+- PRD frontmatter 写着 `gate_mode: self-reported`，或缺少 `final_gate_verdict`——它只被作者模型自评过。
+- **不要**在写 PRD 的那个会话里运行判官。判官必须是全新上下文的子智能体（在 ECC 中即 `prd-judge` agent）；复用写作上下文会无声地毁掉闸门。
 
 ## 为什么存在
 

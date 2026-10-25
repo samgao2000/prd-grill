@@ -1,19 +1,35 @@
 ---
 name: prd-gate
-description: |
+description: >
   Independent PRD quality gate — the measurable checkpoint between "spec
-  produced" (req-dev-lite) and "build started" (auto-dev-lite). Scores a PRD
-  on 11 dimensions (Volere 4 + 7 review labels): deterministic checks plus a
-  fresh-context LLM judge, emitting .gate.json (machine-readable), .gate.md
-  (human-readable), a PASS / PASS-WITH-OPEN-ITEMS / FAIL verdict, and a
-  requirement_confidence value consumed by auto-dev-lite escalation
-  (threshold 0.7). Trigger on "run prd-gate", "score this PRD",
-  "gate this PRD", "/prd-gate".
+  produced" (req-dev-lite) and "build started" (auto-dev-lite, or any
+  planning/TDD workflow). Scores a PRD on 11 dimensions (Volere 4 + 7 review
+  labels): deterministic checks plus a fresh-context LLM judge, emitting
+  .gate.json (machine-readable), .gate.md (human-readable), a PASS /
+  PASS-WITH-OPEN-ITEMS / FAIL verdict, and a requirement_confidence value
+  consumed by build-stage escalation (threshold 0.7). Trigger on "run
+  prd-gate", "score this PRD", "gate this PRD", "/prd-gate".
+metadata:
+  origin: prd-grill
+  author: Sam Gao
+  homepage: https://github.com/samgao2000/prd-grill
 ---
 
 # prd-gate — Independent PRD Quality Gate
 
 > Chinese version: [SKILL.zh.md](SKILL.zh.md)
+
+## When to Activate
+
+- A PRD exists in `docs/prd/` and someone is about to plan or build from it.
+  Gate first; the verdict decides whether building is allowed.
+- The user says "run prd-gate", "score this PRD", "gate this PRD", "/prd-gate".
+- req-dev-lite stage 7 reached landing (mandatory when `prd_gate` is installed).
+- A PRD's frontmatter says `gate_mode: self-reported` or lacks
+  `final_gate_verdict` — it has only been self-graded by its author model.
+- Do **not** run the judge in the session that wrote the PRD. The judge is a
+  fresh-context subagent (in ECC: the `prd-judge` agent); reuse of the authoring
+  context silently destroys the gate.
 
 ## Why it exists
 
